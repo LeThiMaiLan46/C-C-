@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+int tim_do_dai(int a[], int n)
+{
+    int ans=0;
+    if(n<2)
+    {
+        ans=n;
+    }
+    else
+    {
+        int x=2, hieu=a[0]-a[1];
+        for(int i=1; i<n-1; i++)
+        {
+            if(a[i]-a[i+1]==hieu)
+                x++;
+            else
+            {
+                ans=(ans<x)?x:ans;
+                x=2;
+                hieu=a[i]-a[i+1];
+            }
+            if(x==n)
+                ans=x;
+        }
+    }
+    return ans;
+}
+int main()
+{
+    int n;
+    do
+    {
+        cin>>n;
+    }
+    while(n<0);
+    int a[n];
+    for (int i=0; i<n; i++)
+        cin>>a[i];
+    cout<<tim_do_dai(a,n);
+    return 0;
+}

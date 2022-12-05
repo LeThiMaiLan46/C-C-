@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+void nhap_mang(float a[], int n)
+{
+    for (int i=0;i<n;i++)
+        cin>>a[i];
+}
+int main()
+{
+    int n, m;
+    do{
+        cin>>n>>m;
+    }while(n<=0 || m<=0 || n>=100 || m>=100);
+    float a[n], b[m];
+    nhap_mang(a,n);
+    nhap_mang(b,m);
+    int j=0;
+
+    for (int i=0;i<n;i++)
+    {
+        // in ra nhung phan tu cua b nho hon a[i]
+        while(b[j]<a[i])
+        {
+            cout<<b[j]<<" ";
+            j++;
+        }
+        cout<<a[i]<<" ";
+    }
+    // neu phan tu lon nhat cua a nho hon
+    // nhung phan tu con lai cua b
+    if(j<m)
+        for (int i=j;i<m;i++)
+        cout<<b[i]<<" ";
+    return 0;
+}

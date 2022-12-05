@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+    char a[1000];
+    gets(a);
+    int m=0,n=0;
+
+    // tim chi so dau cach dau
+    for (int i=0; i<strlen(a); i++)
+        if(a[i]==' ')
+        {
+            m=i;
+            break;
+        }
+
+    // tim chi so dau cach cuoi
+    for (int i=strlen(a)-1; i>=0; i--)
+        if(a[i]==' ')
+        {
+            n=i;
+            break;
+        }
+    cout<<endl<<m<<endl<<n<<endl;
+    if(m==0)
+    {
+        //puts(a); ...
+        for (int i=0;i<strlen(a);i++)
+            cout<<a[i];
+    }
+    else{
+        for (int i=n+1;i<strlen(a);i++)
+            cout<<a[i];
+        for (int i=m;i<=n;i++)
+            cout<<a[i];
+        for (int i=0;i<m;i++)
+            cout<<a[i];
+    }
+
+    cout<<endl<<strrev(a);
+    return 0;
+}

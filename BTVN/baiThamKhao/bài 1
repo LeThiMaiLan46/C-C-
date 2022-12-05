@@ -1,0 +1,144 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+void xuat_mang(int a[], int n)
+{
+    for (int i=0; i<n; i++)
+        cout<<a[i]<<" ";
+    cout<<endl;
+}
+bool kiem_tra_so_chinh_phuong(int x)
+{
+    if(x<=0)
+        return false;
+    else
+    {
+        if(int(sqrt(x))*int(sqrt(x)) == x)
+            return true;
+        else
+            return false;
+    }
+}
+bool kiem_tra_so_nguyen_to( int x)
+{
+    if(x<2)
+        return false;
+    else
+    {
+        for(int i=2; i<=sqrt(x); i++)
+            if(x%i==0)
+                return false;
+        return true;
+    }
+}
+void chen_so(int a[], int &n, int x, int chiSo)
+{
+
+    n++;
+    for (int i=n; i>chiSo+1; i--)
+        a[i]=a[i-1];
+    a[chiSo+1]=x;
+}
+void chen_x(int a[], int &n)
+{
+    int x;
+    cin>>x;
+    int m=n;
+    int i=0;
+    while(i<n)
+    {
+        if(kiem_tra_so_chinh_phuong(a[i]))
+        {
+            chen_so(a,n,x,i);
+            i++; //9
+        }
+        i++;
+    }
+    if(n==m)
+    {
+        int i=0;
+        int chiSo=-1, m=2; // chiSo=0
+        for (i=0; i<n; i++)
+            if(kiem_tra_so_nguyen_to(a[i]) && a[i]>m)
+            {
+                m=a[i];
+                chiSo=i;
+            }
+        if(chiSo!=-1)
+            chen_so(a,n,x,chiSo);
+    }
+    if(n==m)
+        chen_so(a,n,x,n-1);
+}
+
+bool kiem_tra_so_hoan_hao(int x)
+{
+    if(x<1)
+        return false;
+    else
+    {
+        int tong=0;
+        for (int i=1; i<x; i++)
+            if(x%i==0)
+                tong+=i;
+        if(tong==x)
+            return true;
+        else return false;
+    }
+}
+void thay_so_hoan_hao(int a[], int n)
+{
+    for (int i=0; i<n; i++)
+        if(kiem_tra_so_hoan_hao(a[i]))
+            for(int j=a[i]-1; j>=sqrt(a[i]); j--)
+                if(a[i]%j==0)
+                {
+                    a[i]=j;
+                    break;
+                }
+}
+
+void xoa_so(int a[], int &n, int chiSo)
+{
+    for (int i=chiSo; i<n-1; i++)
+        a[i]=a[i+1];
+    n--;
+}
+void tao_mang_dep(int a[], int &n)
+{
+    int i=0;
+    while(i<n-1)
+    {
+        if(a[i]%2==0 && a[i+1]%2==0 || a[i]%2==1 && a[i+1]%2==1)
+            xoa_so(a,n,i);
+        else i++;
+    }
+}
+int main()
+{
+    int n;
+    // nhap so luong phan tu
+    do
+    {
+        cin>>n;
+    }
+    while(n<1 || n>100);
+    int a[200]; // note so luong phan tu
+    for (int i=0; i<n; i++)
+        cin>>a[i];
+    cout<<"Mang ban dau:\n";
+    xuat_mang(a,n);
+    cout<<"Mang sau khi chen:\n";
+    // yeu cau 1
+    chen_x(a,n);
+    xuat_mang(a,n);
+    cout<<"Mang sau khi thay the: \n";
+    // yeu cau 2
+    thay_so_hoan_hao(a,n);
+    xuat_mang(a,n);
+    cout<<"Mang dep:\n";
+    tao_mang_dep(a,n);
+    xuat_mang(a,n);
+    cout<<n;
+    return 0;
+}
